@@ -1,1 +1,1 @@
-# SalesSense
+Delete README.md
