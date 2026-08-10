@@ -144,6 +144,7 @@ pip install -r requirements.txt
 
 5️⃣ Launch Streamlit app
 streamlit run app/streamlit_app.py
+```
 
 🧪 Key Learnings
 
