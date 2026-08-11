@@ -35,9 +35,10 @@ except Exception:
 # ---------------- SIDEBAR ----------------
 st.sidebar.title("⚙️ Controls")
 
+
 model_name = st.sidebar.selectbox(
     "Select Forecasting Model",
-    ["Random Forest", "XGBoost"]
+    ["XGBoost", "Random Forest", "LSTM"]
 )
 
 forecast_days = st.sidebar.selectbox(
@@ -60,14 +61,14 @@ try:
         feature_names = joblib.load(RF_FEATURES_PATH)
 
     elif model_name == "XGBoost":
-        model = joblib.load(XGB_PATH)
-        feature_names = joblib.load(RF_FEATURES_PATH)
+       model = joblib.load(XGB_PATH)
+       feature_names = df.drop(columns=["sales", "date"]).columns.tolist() 
 
     else:
         model = load_model(LSTM_PATH)
 
-except Exception:
-    st.error("❌ Selected model could not be loaded. Please retrain the model.")
+except Exception as e:
+    st.error(f"❌ Model could not be loaded: {e}")
     st.stop()
 
 # ---------------- HISTORICAL SALES ----------------
@@ -92,7 +93,7 @@ def forecast_future(model, last_row, n_days, feature_names):
     return future_preds
 
 # ---------------- PREDICTIONS ----------------
-if model_name in ["Random Forest", "XGBoost"]:
+if model_name in ["Random Forest", "XGBoost", "LSTM"]:
     X = df.drop(columns=["sales", "date"])
 
     preds = model.predict(X)

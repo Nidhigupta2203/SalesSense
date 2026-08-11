@@ -2,3 +2,6 @@ __pycache__/
 models/*.pkl
 models/*.h5
 .env
+venv/
+.venv/
+.ipynb_checkpoints/
